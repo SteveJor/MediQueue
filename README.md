@@ -1,8 +1,5 @@
 # MediQueue — la file d'attente numérique des centres de santé
 
-> Atelier de développement mobile — ENSPD · Activité n°7 (examen, étape 4)
-> Auteur : Steve Jordan Nongning Lele — GL4
-
 ## 1. Le projet en bref
 
 MediQueue remplace la file d'attente physique d'un centre de santé par une **file numérique**.
@@ -58,7 +55,6 @@ Le projet est volontairement divisé en **deux applications distinctes**, pour u
 ```
 MediQueue/
 ├── README.md                  ← ce fichier
-├── MediQueue.sln              ← solution Visual Studio (les deux applications)
 ├── MediQueue.Patient/         ← application Patient (publique)
 ├── MediQueue.Consultant/      ← application Consultant (licence, accès restreint)
 └── qr_demo/                   ← QR codes de démonstration pour tester le scan
@@ -93,14 +89,6 @@ Les deux applications ont des identifiants différents : elles s'installent côt
 
 Dans chaque application, ouvrir `Config/AppConfig.cs` et remplacer `ServiceMode.Simulation` par `ServiceMode.Api` ; renseigner `LanHost` (adresse IPv4 du PC qui héberge le backend) si le test se fait sur un téléphone physique. Aucun autre fichier à modifier.
 
-## 8. Historique Git par phase
-
-| Phase | Contenu |
-|---|---|
-| **Phase A** | Socle des deux applications : projets, configuration, thème, modèles, services de simulation |
-| **Phase B** | Interfaces de l'application Patient |
-| **Phase C** | Interfaces de l'application Consultant |
-| **Fonctionnalités ajoutées** | Scan QR par caméra · bottom sheets de confirmation · persistance locale · client API réel |
 
 ## 9. Périmètre de cette étape
 
