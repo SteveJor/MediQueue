@@ -60,17 +60,6 @@ MediQueue/
 └── qr_demo/                   ← QR codes de démonstration pour tester le scan
 ```
 
-## 7. Lancer une application (mode simulation, sans serveur)
-
-**Prérequis** : Visual Studio avec la charge de travail « Développement .NET Multiplateforme » (.NET MAUI), le SDK .NET 10, et un émulateur Android (API 34 ou plus) ou un téléphone Android en mode développeur.
-
-1. Ouvrir `MediQueue.sln` dans Visual Studio.
-2. Choisir le projet de démarrage (`MediQueue.Patient` ou `MediQueue.Consultant`) et la cible **Android**.
-3. Laisser la restauration NuGet se terminer, puis lancer ▶.
-4. L'application démarre en **mode simulation** : aucun serveur n'est nécessaire. Un encadré « MODE SIMULATION » en bas de l'écran permet de jouer le rôle de l'autre application.
-
-Les deux applications ont des identifiants différents : elles s'installent côte à côte sur le même appareil.
-
 ### Données de démonstration
 
 - **Consultant** : identifiant du centre `SM-001` · consultant `MG-01` · mot de passe `demo1234`.
