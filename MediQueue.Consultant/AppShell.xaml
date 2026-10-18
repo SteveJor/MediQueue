@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="MediQueue.Consultant.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:MediQueue.Consultant.Views"
+       Shell.FlyoutBehavior="Disabled"
+       Shell.NavBarIsVisible="False"
+       Shell.TabBarIsVisible="False"
+       Shell.BackgroundColor="{StaticResource PageBackground}">
+
+    <!-- Exactement deux écrans : Connexion, puis Tableau de bord. Ni onglets, ni barre inférieure. -->
+    <ShellContent Title="Connexion" Route="login" ContentTemplate="{DataTemplate views:LoginPage}" />
+    <ShellContent Title="Tableau de bord" Route="dashboard" ContentTemplate="{DataTemplate views:DashboardPage}" />
+</Shell>

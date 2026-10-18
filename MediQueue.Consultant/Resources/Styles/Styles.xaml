@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Polices : déposez Inter-Regular/Medium/SemiBold.ttf dans Resources/Fonts.
+         Sans fichiers, Android utilise sa police par défaut (aucune erreur). -->
+    <x:String x:Key="FontRegular">Inter-Regular</x:String>
+    <x:String x:Key="FontMedium">Inter-Medium</x:String>
+    <x:String x:Key="FontSemiBold">Inter-SemiBold</x:String>
+
+    <!-- ───────────── Textes ───────────── -->
+    <Style x:Key="BaseLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource TextDark}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontRegular}" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style TargetType="Label" BasedOn="{StaticResource BaseLabel}" />
+
+    <Style x:Key="BrandTitle" TargetType="Label" BasedOn="{StaticResource BaseLabel}">
+        <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+        <Setter Property="FontSize" Value="22" />
+    </Style>
+    <Style x:Key="Title" TargetType="Label" BasedOn="{StaticResource BaseLabel}">
+        <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+        <Setter Property="FontSize" Value="28" />
+    </Style>
+    <Style x:Key="Subtitle" TargetType="Label" BasedOn="{StaticResource BaseLabel}">
+        <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+        <Setter Property="FontSize" Value="15" />
+    </Style>
+    <Style x:Key="Caption" TargetType="Label" BasedOn="{StaticResource BaseLabel}">
+        <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+        <Setter Property="FontSize" Value="13" />
+    </Style>
+    <Style x:Key="SectionTitle" TargetType="Label" BasedOn="{StaticResource BaseLabel}">
+        <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+    <Style x:Key="BodyStrong" TargetType="Label" BasedOn="{StaticResource BaseLabel}">
+        <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+
+    <!-- Bottom sheet -->
+    <Style x:Key="SheetTitle" TargetType="Label" BasedOn="{StaticResource BaseLabel}">
+        <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+        <Setter Property="FontSize" Value="22" />
+    </Style>
+    <Style x:Key="SheetMessage" TargetType="Label" BasedOn="{StaticResource BaseLabel}">
+        <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+        <Setter Property="FontSize" Value="15" />
+    </Style>
+
+    <!-- ───────────── Boutons ───────────── -->
+    <Style x:Key="PrimaryButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+        <Setter Property="TextColor" Value="{StaticResource White}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="HeightRequest" Value="52" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource Divider}" />
+                            <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+    <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+        <Setter Property="BackgroundColor" Value="{StaticResource PalePrimary}" />
+        <Setter Property="TextColor" Value="{StaticResource Primary}" />
+    </Style>
+    <Style x:Key="SmallButton" TargetType="Button" BasedOn="{StaticResource SecondaryButton}">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="CornerRadius" Value="10" />
+    </Style>
+
+    <!-- Carte « En consultation » -->
+    <Style x:Key="CurrentCard" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource PalePrimary}" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 24" />
+    </Style>
+    <Style x:Key="CurrentNumber" TargetType="Label" BasedOn="{StaticResource BaseLabel}">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryDeep}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+        <Setter Property="FontSize" Value="44" />
+    </Style>
+
+    <!-- ───────────── Cartes ───────────── -->
+
+
+    <Style x:Key="QueueRowCard" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 14" />
+    </Style>
+
+    <Style x:Key="InputCard" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource Surface}" />
+        <Setter Property="Stroke" Value="{StaticResource Divider}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 14" />
+        <Setter Property="Padding" Value="14,0" />
+    </Style>
+
+</ResourceDictionary>

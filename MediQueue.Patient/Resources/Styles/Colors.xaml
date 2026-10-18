@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- PALETTE PATIENT (vert). L'app Consultant utilisera les MÊMES clés avec des valeurs bleues. -->
+    <Color x:Key="Primary">#167B69</Color>          <!-- Vert sarcelle : boutons, logo, accents -->
+    <Color x:Key="PrimaryDeep">#135D51</Color>      <!-- Vert profond : carte ticket, confirmations -->
+    <Color x:Key="TextDark">#173D38</Color>         <!-- Vert très foncé : titres, texte, fond du scanner -->
+    <Color x:Key="TextSecondary">#71837E</Color>    <!-- Gris vert : texte secondaire -->
+    <Color x:Key="PageBackground">#F6F9F8</Color>   <!-- Blanc cassé : fond principal -->
+    <Color x:Key="Surface">#FFFFFF</Color>          <!-- Blanc : cartes, panneaux -->
+    <Color x:Key="MintPale">#E9F4EF</Color>         <!-- Vert menthe pâle : mise en évidence -->
+    <Color x:Key="Divider">#E1EAE6</Color>          <!-- Gris vert clair : bordures, séparateurs -->
+    <Color x:Key="Mint1">#D9EDE6</Color>            <!-- Menthe complémentaire -->
+    <Color x:Key="Mint2">#C7E2D8</Color>            <!-- Menthe complémentaire (contraste sur cartes foncées) -->
+    <Color x:Key="White">#FFFFFF</Color>
+    <Color x:Key="ChipOnDark">#33FFFFFF</Color>     <!-- Blanc 20 % : pastille de statut sur la carte -->
+
+</ResourceDictionary>

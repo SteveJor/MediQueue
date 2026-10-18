@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:MediQueue.Patient.Views.Controls"
+             x:Class="MediQueue.Patient.Views.HomePage"
+             Shell.NavBarIsVisible="False"
+             SafeAreaEdges="Container"
+             BackgroundColor="{StaticResource PageBackground}">
+
+    <Grid>
+        <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                     Command="{Binding RefreshCommand}"
+                     RefreshColor="{StaticResource Primary}">
+            <ScrollView>
+                <VerticalStackLayout Padding="20,12,20,28" Spacing="16">
+
+                    <!-- En-tête : logo + nom -->
+                    <HorizontalStackLayout Spacing="10">
+                        <Image Source="{StaticResource ImgLogo}" WidthRequest="38" HeightRequest="38" Aspect="AspectFit" />
+                        <Label Text="MediQueue" Style="{StaticResource BrandTitle}" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <!-- ═════════ ÉTAT A : aucun ticket ═════════ -->
+                    <VerticalStackLayout Spacing="14" IsVisible="{Binding HasNoTicket}">
+
+                        <Border Style="{StaticResource HeroCard}">
+                            <Image Source="{StaticResource ImgHeroIllustration}" HeightRequest="210" Aspect="AspectFit" />
+                        </Border>
+
+                        <Label Text="Bienvenue, prenez place." Style="{StaticResource Title}"
+                               HorizontalTextAlignment="Center" Margin="0,10,0,0" />
+                        <Label Text="Votre passage au centre, en toute simplicité." Style="{StaticResource Subtitle}"
+                               HorizontalTextAlignment="Center" />
+
+                        <!-- Carte ticket vide -->
+                        <Border Style="{StaticResource TicketCard}" HeightRequest="184" Margin="0,8,0,0">
+                            <Grid>
+                                <Image Source="{StaticResource ImgTicketBackground}" Aspect="AspectFill" />
+                                <Grid Padding="22" RowDefinitions="Auto,*,Auto" ColumnDefinitions="*,Auto">
+                                    <Label Text="MON TICKET" Style="{StaticResource TicketCaption}" />
+                                    <Image Grid.Column="1" Source="{StaticResource ImgTicketWaves}"
+                                           WidthRequest="22" HeightRequest="22" Aspect="AspectFit" />
+                                    <VerticalStackLayout Grid.Row="1" Grid.ColumnSpan="2" Spacing="6" VerticalOptions="Center">
+                                        <Label Text="Aucun ticket en cours" Style="{StaticResource TicketHeadline}" />
+                                        <Label Text="Scannez le QR code de votre centre pour rejoindre la file d'attente."
+                                               Style="{StaticResource TicketBody}" />
+                                    </VerticalStackLayout>
+                                    <Label Grid.Row="2" Text="MEDIQUEUE" Style="{StaticResource TicketCaption}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+
+                        <!-- Grand bouton rond de scan -->
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center" Margin="0,6,0,0">
+                            <Border WidthRequest="72" HeightRequest="72"
+                                    BackgroundColor="{StaticResource Primary}"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 36"
+                                    HorizontalOptions="Center"
+                                    SemanticProperties.Description="Scanner le QR code">
+                                <Image Source="{StaticResource ImgScanIcon}" WidthRequest="30" HeightRequest="30"
+                                       Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" />
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ScanCommand}" />
+                                </Border.GestureRecognizers>
+                            </Border>
+                            <Label Text="Scanner le QR code" TextColor="{StaticResource Primary}"
+                                   FontFamily="{StaticResource FontSemiBold}" FontSize="13" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+
+                    <!-- ═════════ ÉTAT B : ticket actif ═════════ -->
+                    <VerticalStackLayout Spacing="16" IsVisible="{Binding HasTicket}">
+
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="{Binding HeaderTitle}" Style="{StaticResource Title}" />
+                                <Label Text="{Binding HeaderSubtitle}" Style="{StaticResource Caption}" />
+                            </VerticalStackLayout>
+                            <Border Grid.Column="1" WidthRequest="68" HeightRequest="68"
+                                    BackgroundColor="{StaticResource MintPale}" StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 14" VerticalOptions="Start">
+                                <Image Source="{StaticResource ImgQueueIllustration}" Aspect="AspectFill" />
+                            </Border>
+                        </Grid>
+
+                        <!-- Message discret quand le serveur est injoignable -->
+                        <Label Text="{Binding ConnectionMessage}" IsVisible="{Binding HasConnectionMessage}"
+                               Style="{StaticResource Caption}" />
+
+                        <Border Style="{StaticResource TicketCard}" HeightRequest="196">
+                            <Grid>
+                                <Image Source="{StaticResource ImgTicketBackground}" Aspect="AspectFill" />
+                                <Grid Padding="22" RowDefinitions="Auto,*,Auto" ColumnDefinitions="*,Auto">
+                                    <Label Text="MON TICKET" Style="{StaticResource TicketCaption}" />
+                                    <Image Grid.Column="1" Source="{StaticResource ImgTicketWaves}"
+                                           WidthRequest="22" HeightRequest="22" Aspect="AspectFit" />
+
+                                    <Grid Grid.Row="1" Grid.ColumnSpan="2" RowDefinitions="Auto,Auto,Auto"
+                                          ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                                        <Label Text="{Binding TicketNumberText}" Style="{StaticResource TicketNumber}" />
+                                        <Border Grid.Column="1" BackgroundColor="{StaticResource ChipOnDark}"
+                                                StrokeThickness="0" StrokeShape="RoundRectangle 14"
+                                                Padding="12,5" VerticalOptions="Center">
+                                            <Label Text="{Binding StatusText}" TextColor="{StaticResource White}"
+                                                   FontFamily="{StaticResource FontMedium}" FontSize="12" />
+                                        </Border>
+                                        <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding CenterName}"
+                                               Style="{StaticResource TicketBody}" TextColor="{StaticResource White}"
+                                               FontFamily="{StaticResource FontMedium}" FontSize="15" />
+                                        <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding ServiceName}"
+                                               Style="{StaticResource TicketBody}" FontSize="13" />
+                                    </Grid>
+
+                                    <Label Grid.Row="2" Text="MEDIQUEUE" Style="{StaticResource TicketCaption}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+
+                        <!-- Ma file d'attente : uniquement le nombre devant moi et ma position -->
+                        <VerticalStackLayout Spacing="10" IsVisible="{Binding ShowQueueSection}">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Text="Ma file d'attente" Style="{StaticResource SectionTitle}" />
+                                <Label Grid.Column="1" Text="{Binding AheadSummary}" Style="{StaticResource Caption}"
+                                       VerticalOptions="End" />
+                            </Grid>
+
+                            <VerticalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding QueueRows}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Style="{StaticResource QueueRowCard}" HeightRequest="50">
+                                            <Border.Triggers>
+                                                <DataTrigger TargetType="Border" Binding="{Binding IsMe}" Value="True">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource MintPale}" />
+                                                </DataTrigger>
+                                            </Border.Triggers>
+                                            <Grid ColumnDefinitions="*,Auto" Padding="16,0">
+                                                <Label Text="{Binding Title}" Style="{StaticResource BodyStrong}"
+                                                       VerticalOptions="Center">
+                                                    <Label.Triggers>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding IsMe}" Value="True">
+                                                            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                                        </DataTrigger>
+                                                    </Label.Triggers>
+                                                </Label>
+                                                <Label Grid.Column="1" Text="{Binding Caption}" Style="{StaticResource Caption}"
+                                                       VerticalOptions="Center">
+                                                    <Label.Triggers>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding IsMe}" Value="True">
+                                                            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                                            <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+                                                        </DataTrigger>
+                                                    </Label.Triggers>
+                                                </Label>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+
+                        <!-- Bouton « Annuler » de la maquette (désactivable : AppConfig.EnableTicketCancellation) -->
+                        <Button Text="Annuler" Style="{StaticResource PrimaryButton}" Margin="0,8,0,0"
+                                Command="{Binding CancelTicketCommand}" IsVisible="{Binding CanCancelTicket}" />
+                    </VerticalStackLayout>
+
+                    
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+
+        <!-- Bottom sheet (au-dessus de tout) -->
+        <controls:BottomSheet IsOpen="{Binding IsSheetOpen}"
+                              Title="{Binding SheetTitle}"
+                              Message="{Binding SheetMessage}"
+                              CancelText="{Binding SheetCancelText}"
+                              ConfirmText="{Binding SheetConfirmText}"
+                              CancelCommand="{Binding DismissSheetCommand}"
+                              ConfirmCommand="{Binding ConfirmSheetCommand}" />
+    </Grid>
+</ContentPage>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- PALETTE CONSULTANT (bleu médical). Mêmes CLÉS que l'app Patient, seules les valeurs changent. -->
+    <Color x:Key="Primary">#2F6F9E</Color>          <!-- Bleu principal : boutons, accents (maquette) -->
+    <Color x:Key="PrimaryDeep">#1F4F6D</Color>      <!-- Bleu profond : titres, éléments importants, confirmations (maquette) -->
+    <Color x:Key="TextDark">#1F4F6D</Color>         <!-- Titres et texte principal : bleu profond comme sur la maquette -->
+    <Color x:Key="TextSecondary">#71858D</Color>    <!-- Gris bleu : texte secondaire (cahier des charges) -->
+    <Color x:Key="PageBackground">#F4F8FB</Color>   <!-- Fond clair (maquette) -->
+    <Color x:Key="Surface">#FFFFFF</Color>          <!-- Blanc : cartes, formulaires -->
+    <Color x:Key="PalePrimary">#EAF2F8</Color>      <!-- Bleu pâle : encadrés, mises en évidence (maquette) -->
+    <Color x:Key="Divider">#DCE8ED</Color>          <!-- Gris bleu clair : bordures, séparateurs (cahier des charges) -->
+    <Color x:Key="Accent">#74B7C7</Color>           <!-- Bleu clair : accents secondaires (cahier des charges) -->
+    <Color x:Key="White">#FFFFFF</Color>
+
+</ResourceDictionary>

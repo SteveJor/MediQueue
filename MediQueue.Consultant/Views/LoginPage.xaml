@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MediQueue.Consultant.Views.LoginPage"
+             Shell.NavBarIsVisible="False"
+             SafeAreaEdges="Container"
+             BackgroundColor="{StaticResource PageBackground}">
+
+    <Grid RowDefinitions="*,Auto" Padding="24,12,24,20">
+
+        <ScrollView>
+            <VerticalStackLayout Spacing="8">
+
+                <!-- Logo : toujours visible (sert aussi d'écran d'attente pendant la lecture de la session) -->
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="{StaticResource ImgLogo}" WidthRequest="38" HeightRequest="38" Aspect="AspectFit" />
+                    <Label Text="MediQueue" Style="{StaticResource BrandTitle}" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+
+                <VerticalStackLayout Spacing="8" IsVisible="{Binding IsFormVisible}">
+
+                    <Label Text="Bienvenue dans votre centre." Style="{StaticResource Title}" Margin="0,44,0,0" />
+                    <Label Text="Connectez-vous pour gérer les appels de votre service."
+                           Style="{StaticResource Subtitle}" Margin="0,0,0,14" />
+
+                    <Label Text="Identifiant du centre" Style="{StaticResource BodyStrong}" FontSize="14" />
+                    <Border Style="{StaticResource InputCard}" HeightRequest="52" Margin="0,0,0,8">
+                        <Entry Text="{Binding CenterCode}" Placeholder="Ex. : SM-001"
+                               Keyboard="Plain" ReturnType="Next" MaxLength="30"
+                               TextColor="{StaticResource TextDark}" PlaceholderColor="{StaticResource TextSecondary}"
+                               FontFamily="{StaticResource FontRegular}" BackgroundColor="Transparent"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <Label Text="Identifiant du consultant" Style="{StaticResource BodyStrong}" FontSize="14" />
+                    <Border Style="{StaticResource InputCard}" HeightRequest="52" Margin="0,0,0,8">
+                        <Entry Text="{Binding ConsultantCode}" Placeholder="Ex. : MG-01"
+                               Keyboard="Plain" ReturnType="Next" MaxLength="30"
+                               TextColor="{StaticResource TextDark}" PlaceholderColor="{StaticResource TextSecondary}"
+                               FontFamily="{StaticResource FontRegular}" BackgroundColor="Transparent"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <Label Text="Mot de passe" Style="{StaticResource BodyStrong}" FontSize="14" />
+                    <Border Style="{StaticResource InputCard}" HeightRequest="52" Margin="0,0,0,8">
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                            <Entry Text="{Binding Password}" Placeholder="Votre mot de passe" IsPassword="True"
+                                   ReturnType="Done" ReturnCommand="{Binding LoginCommand}" MaxLength="100"
+                                   TextColor="{StaticResource TextDark}" PlaceholderColor="{StaticResource TextSecondary}"
+                                   FontFamily="{StaticResource FontRegular}" BackgroundColor="Transparent"
+                                   VerticalOptions="Center" />
+                            <Image Grid.Column="1" Source="{StaticResource ImgLockIcon}" WidthRequest="18" HeightRequest="18"
+                                   Aspect="AspectFit" VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+
+                    <!-- Erreur de connexion (identifiants, réseau, session expirée…) -->
+                    <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}"
+                           TextColor="{StaticResource PrimaryDeep}" FontFamily="{StaticResource FontSemiBold}" FontSize="14" />
+
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                                       Color="{StaticResource Primary}" HeightRequest="24" />
+
+                    <Button Text="Se connecter" Style="{StaticResource PrimaryButton}" Command="{Binding LoginCommand}"
+                            Margin="0,6,0,0" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <HorizontalStackLayout Grid.Row="1" Spacing="8" HorizontalOptions="Center" IsVisible="{Binding IsFormVisible}">
+            <Image Source="{StaticResource ImgShieldIcon}" WidthRequest="16" HeightRequest="16" Aspect="AspectFit"
+                   VerticalOptions="Center" />
+            <Label Text="Accès réservé au personnel du centre" Style="{StaticResource Caption}" FontSize="12"
+                   VerticalOptions="Center" />
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

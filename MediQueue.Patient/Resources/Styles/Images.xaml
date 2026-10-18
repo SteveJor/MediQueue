@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--
+        ┌───────────────────────────────────────────────────────────────────────┐
+        │  ICI VOUS INDIQUEZ VOS IMAGES (un seul fichier à modifier).           │
+        │                                                                       │
+        │  1. Copiez vos fichiers dans  Resources/Images/                       │
+        │  2. Écrivez ci-dessous leur NOM SANS EXTENSION.                       │
+        │     Règles : minuscules, chiffres et _ uniquement, pas d'espace,      │
+        │     commence par une lettre. Formats : .svg (idéal), .png, .jpg       │
+        │                                                                       │
+        │  Tant qu'un fichier est absent, l'emplacement reste vide (pas d'erreur).│
+        └───────────────────────────────────────────────────────────────────────┘
+    -->
+
+    <!-- Logo MediQueue (en-tête, ~36 px) -->
+    <x:String x:Key="ImgLogo">logo_mediqueue</x:String>
+
+    <!-- Grande illustration de l'accueil (patiente + médecin) -->
+    <x:String x:Key="ImgHeroIllustration">illustration_accueil</x:String>
+
+    <!-- Petite illustration en haut à droite quand un ticket est actif -->
+    <x:String x:Key="ImgQueueIllustration">illustration_file</x:String>
+
+    <!-- Fond vert de la carte « Mon ticket » (image pleine carte, motifs inclus) -->
+    <x:String x:Key="ImgTicketBackground">ticket_fond</x:String>
+
+    <!-- Icône « ondes » en haut à droite de la carte ticket -->
+    <x:String x:Key="ImgTicketWaves">ic_ondes</x:String>
+
+    <!-- Icône dans le grand bouton rond de scan -->
+    <x:String x:Key="ImgScanIcon">ic_scan</x:String>
+
+</ResourceDictionary>

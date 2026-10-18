@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Panneau modal « Bottom Sheet » réutilisable (maquette : « Rejoindre une file », « Annuler mon ticket »).
+    Le contenu et les actions viennent du ViewModel par binding ; ce contrôle ne contient aucune logique métier.
+    x:Name="This" est ici légitime : il sert à lier les propriétés propres du contrôle (et non à contourner le MVVM).
+-->
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MediQueue.Patient.Views.Controls.BottomSheet"
+             x:Name="This"
+             IsVisible="False">
+
+    <Grid>
+        <!-- Voile sombre : toucher = annuler -->
+        <BoxView x:Name="Scrim" Color="Black" Opacity="0">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CancelCommand, Source={x:Reference This}}" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <!-- Panneau -->
+        <Border x:Name="Sheet"
+                VerticalOptions="End"
+                BackgroundColor="{StaticResource Surface}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 28,28,0,0"
+                Padding="20,10,20,28">
+            <VerticalStackLayout Spacing="12">
+                <BoxView WidthRequest="40" HeightRequest="4" CornerRadius="2"
+                         Color="{StaticResource Divider}" HorizontalOptions="Center" />
+
+                <Label Text="{Binding Title, Source={x:Reference This}}"
+                       Style="{StaticResource SheetTitle}" Margin="0,8,0,0" />
+                <Label Text="{Binding Message, Source={x:Reference This}}"
+                       Style="{StaticResource SheetMessage}" />
+
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,8,0,0">
+                    <Button Grid.Column="0"
+                            Text="{Binding CancelText, Source={x:Reference This}}"
+                            Command="{Binding CancelCommand, Source={x:Reference This}}"
+                            Style="{StaticResource SecondaryButton}" />
+                    <Button Grid.Column="1"
+                            Text="{Binding ConfirmText, Source={x:Reference This}}"
+                            Command="{Binding ConfirmCommand, Source={x:Reference This}}"
+                            Style="{StaticResource PrimaryButton}" />
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentView>

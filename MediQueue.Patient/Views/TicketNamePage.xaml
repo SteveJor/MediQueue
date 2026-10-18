@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MediQueue.Patient.Views.TicketNamePage"
+             Shell.NavBarIsVisible="False"
+             SafeAreaEdges="Container"
+             BackgroundColor="{StaticResource PageBackground}">
+
+    <Grid RowDefinitions="*,Auto" Padding="24,12,24,24" RowSpacing="12">
+
+        <ScrollView>
+            <VerticalStackLayout Spacing="14">
+
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="{StaticResource ImgLogo}" WidthRequest="38" HeightRequest="38" Aspect="AspectFit" />
+                    <Label Text="MediQueue" Style="{StaticResource BrandTitle}" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+
+                <!-- Pastille de confirmation -->
+                <Border WidthRequest="58" HeightRequest="58" BackgroundColor="{StaticResource MintPale}"
+                        StrokeThickness="0" StrokeShape="RoundRectangle 29" HorizontalOptions="Start" Margin="0,22,0,0">
+                    <Label Text="✓" TextColor="{StaticResource Primary}" FontSize="26"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+
+                <Label Text="Votre ticket est prêt." Style="{StaticResource Title}" Margin="0,8,0,0" />
+                <Label Text="Vous pouvez ajouter votre nom ou continuer sans le renseigner."
+                       Style="{StaticResource Subtitle}" />
+
+                <!-- Centre + service issus du QR code (validés par le service) -->
+                <Border BackgroundColor="{StaticResource MintPale}" StrokeThickness="0"
+                        StrokeShape="RoundRectangle 14" Padding="18,16" Margin="0,8,0,0">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="{Binding CenterName}" Style="{StaticResource BodyStrong}" />
+                        <Label Text="{Binding ServiceName}" Style="{StaticResource Caption}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Grid ColumnDefinitions="*,Auto" Margin="0,10,0,0">
+                    <Label Text="Votre nom" Style="{StaticResource BodyStrong}" FontSize="15" />
+                    <Label Grid.Column="1" Text="Facultatif" Style="{StaticResource Caption}" VerticalOptions="Center" />
+                </Grid>
+
+                <Border Style="{StaticResource InputCard}" HeightRequest="52">
+                    <Entry Text="{Binding PatientName}" Placeholder="Ex. : Camille" MaxLength="40"
+                           Keyboard="Text" ReturnType="Done" ReturnCommand="{Binding ContinueCommand}"
+                           TextColor="{StaticResource TextDark}" PlaceholderColor="{StaticResource TextSecondary}"
+                           FontFamily="{StaticResource FontRegular}" BackgroundColor="Transparent"
+                           VerticalOptions="Center" />
+                </Border>
+
+                <Label Text="Sans nom, vous serez appelé par votre numéro." Style="{StaticResource Caption}" />
+
+                <!-- Erreur de création (réseau, QR devenu invalide…) -->
+                <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}"
+                       TextColor="{StaticResource PrimaryDeep}" FontFamily="{StaticResource FontSemiBold}" FontSize="14" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="1" Spacing="12">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                               Color="{StaticResource Primary}" HeightRequest="24" />
+            <Button Text="Continuer" Style="{StaticResource PrimaryButton}" Command="{Binding ContinueCommand}" />
+            <Label Text="Aucun compte nécessaire." Style="{StaticResource Caption}" HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

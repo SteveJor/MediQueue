@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- Android uniquement (voir docs/INSTALLATION.md pour ajouter iOS/Windows). -->
+		<TargetFrameworks>net10.0-android</TargetFrameworks>
+		<OutputType>Exe</OutputType>
+		<RootNamespace>MediQueue.Patient</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Identité de l'application -->
+		<ApplicationTitle>MediQueue</ApplicationTitle>
+		<ApplicationId>com.mediqueue.patient</ApplicationId>
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- ICÔNE DE L'APPLICATION : remplacez les deux fichiers SVG (voir docs/IMAGES-ET-ICONE.md) -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#167B69" />
+
+		<!-- ÉCRAN DE DÉMARRAGE -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#167B69" BaseSize="128,128" />
+
+		<!-- IMAGES : déposez vos fichiers dans Resources\Images (noms en minuscules, sans espaces) -->
+		<MauiImage Include="Resources\Images\*.svg;Resources\Images\*.png;Resources\Images\*.jpg;Resources\Images\*.jpeg" />
+
+		<!-- POLICES : déposez Inter-Regular.ttf, Inter-Medium.ttf, Inter-SemiBold.ttf dans Resources\Fonts -->
+		<MauiFont Include="Resources\Fonts\*.ttf;Resources\Fonts\*.otf" />
+
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
+		<!-- Scan QR : ML Kit (Android) / Vision (iOS). 3.x = .NET 10. Pour .NET 9, utiliser 2.2.1. -->
+		<PackageReference Include="BarcodeScanning.Native.Maui" Version="3.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\Images.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Controls\BottomSheet.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ScanPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\TicketNamePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+</Project>

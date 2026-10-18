@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:MediQueue.Consultant.Views.Controls"
+             x:Class="MediQueue.Consultant.Views.DashboardPage"
+             Shell.NavBarIsVisible="False"
+             SafeAreaEdges="Container"
+             BackgroundColor="{StaticResource PageBackground}">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <!-- Contenu défilant : centre, service, patient en consultation, file d'attente -->
+        <RefreshView Grid.Row="0" IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                     Command="{Binding RefreshCommand}" RefreshColor="{StaticResource Primary}">
+            <ScrollView>
+                <VerticalStackLayout Padding="20,12,20,16" Spacing="16">
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Image Source="{StaticResource ImgLogo}" WidthRequest="38" HeightRequest="38" Aspect="AspectFit" />
+                        <Label Text="MediQueue" Style="{StaticResource BrandTitle}" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <!-- Centre + service (renvoyés par le serveur) -->
+                    <VerticalStackLayout Spacing="4" Margin="0,6,0,0">
+                        <Label Text="{Binding CenterName}" Style="{StaticResource Title}" />
+                        <HorizontalStackLayout Spacing="8">
+                            <Image Source="{StaticResource ImgServiceIcon}" WidthRequest="18" HeightRequest="18"
+                                   Aspect="AspectFit" VerticalOptions="Center" />
+                            <Label Text="{Binding ServiceName}" Style="{StaticResource Subtitle}" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <!-- Message discret quand le serveur est injoignable -->
+                    <Label Text="{Binding ConnectionMessage}" IsVisible="{Binding HasConnectionMessage}"
+                           Style="{StaticResource Caption}" />
+
+                    <!-- Patient actuellement en consultation -->
+                    <Border Style="{StaticResource CurrentCard}" Padding="20">
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                            <HorizontalStackLayout Spacing="8">
+                                <BoxView WidthRequest="8" HeightRequest="8" CornerRadius="4" Color="{StaticResource Primary}"
+                                         VerticalOptions="Center" IsVisible="{Binding HasCurrent}" />
+                                <Label Text="{Binding CurrentCaption}" TextColor="{StaticResource Primary}"
+                                       FontFamily="{StaticResource FontSemiBold}" FontSize="13" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <Label Grid.Row="1" Text="{Binding CurrentNumberText}" Style="{StaticResource CurrentNumber}"
+                                   Margin="0,18,0,0" />
+                            <Border Grid.Column="1" Grid.RowSpan="2" WidthRequest="48" HeightRequest="48"
+                                    BackgroundColor="{StaticResource White}" StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 24" VerticalOptions="End">
+                                <Image Source="{StaticResource ImgPersonIcon}" WidthRequest="22" HeightRequest="22"
+                                       Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- File d'attente -->
+                    <Grid ColumnDefinitions="*,Auto" Margin="0,4,0,0">
+                        <Label Text="File d'attente" Style="{StaticResource SectionTitle}" VerticalOptions="Center" />
+                        <Border Grid.Column="1" BackgroundColor="{StaticResource Divider}" StrokeThickness="0"
+                                StrokeShape="RoundRectangle 12" Padding="12,5" VerticalOptions="Center">
+                            <Label Text="{Binding WaitingCountText}" TextColor="{StaticResource Primary}"
+                                   FontFamily="{StaticResource FontSemiBold}" FontSize="12" />
+                        </Border>
+                    </Grid>
+
+                    <VerticalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding WaitingRows}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource QueueRowCard}" HeightRequest="52">
+                                    <Grid ColumnDefinitions="*,Auto" Padding="16,0">
+                                        <Label Text="{Binding Title}" Style="{StaticResource BodyStrong}" VerticalOptions="Center" />
+                                        <Label Grid.Column="1" Text="{Binding Caption}" Style="{StaticResource Caption}"
+                                               VerticalOptions="Center" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+
+                    <Label Text="{Binding EmptyQueueText}" IsVisible="{Binding IsQueueEmpty}"
+                           Style="{StaticResource Caption}" HorizontalTextAlignment="Center" Margin="0,8,0,0" />
+
+                    
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+
+        <!-- Zone d'action fixe : notification, grand bouton, rappel de la règle -->
+        <VerticalStackLayout Grid.Row="1" Padding="20,8,20,18" Spacing="10" BackgroundColor="{StaticResource PageBackground}">
+
+            <Border IsVisible="{Binding IsSnackbarVisible}" BackgroundColor="{StaticResource PrimaryDeep}"
+                    StrokeThickness="0" StrokeShape="RoundRectangle 14" Padding="16,14">
+                <HorizontalStackLayout Spacing="10">
+                    <Image Source="{StaticResource ImgCheckIcon}" WidthRequest="18" HeightRequest="18" Aspect="AspectFit"
+                           VerticalOptions="Center" />
+                    <Label Text="{Binding SnackbarMessage}" TextColor="{StaticResource White}"
+                           FontFamily="{StaticResource FontMedium}" FontSize="14" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </Border>
+
+            <Button Text="Appeler le patient suivant" Style="{StaticResource PrimaryButton}"
+                    Command="{Binding CallNextCommand}" />
+            <Label Text="La file avance uniquement à votre appel." Style="{StaticResource Caption}" FontSize="12"
+                   HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+
+        <!-- Confirmation : au-dessus de tout -->
+        <controls:BottomSheet Grid.RowSpan="2"
+                              IsOpen="{Binding IsSheetOpen}"
+                              Title="{Binding SheetTitle}"
+                              Message="{Binding SheetMessage}"
+                              CancelText="Annuler"
+                              ConfirmText="Confirmer"
+                              CancelCommand="{Binding DismissSheetCommand}"
+                              ConfirmCommand="{Binding ConfirmCallCommand}" />
+    </Grid>
+</ContentPage>

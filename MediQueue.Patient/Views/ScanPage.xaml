@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:scanner="clr-namespace:BarcodeScanning;assembly=BarcodeScanning.Native.Maui"
+             x:Class="MediQueue.Patient.Views.ScanPage"
+             Shell.NavBarIsVisible="False"
+             SafeAreaEdges="Container"
+             BackgroundColor="{StaticResource TextDark}">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="20,8,20,28" RowSpacing="16">
+
+        <!-- En-tête : flèche retour + titre -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*" ColumnSpacing="6">
+            <Button Text="←" FontSize="26" TextColor="{StaticResource White}" BackgroundColor="Transparent"
+                    Padding="8,0" WidthRequest="48" HeightRequest="48"
+                    Command="{Binding GoBackCommand}" SemanticProperties.Description="Retour" />
+            <Label Grid.Column="1" Text="Scanner le QR code" TextColor="{StaticResource White}"
+                   FontFamily="{StaticResource FontSemiBold}" FontSize="20" VerticalOptions="Center" />
+        </Grid>
+
+        <Label Grid.Row="1" Text="Placez le QR code du centre dans le cadre."
+               TextColor="{StaticResource Mint1}" FontSize="14" HorizontalTextAlignment="Center" />
+
+        <!-- Zone caméra -->
+        <Border Grid.Row="2" VerticalOptions="Center" HeightRequest="420"
+                BackgroundColor="#0F2A26" StrokeThickness="0" StrokeShape="RoundRectangle 28">
+            <Grid>
+                <scanner:CameraView CameraEnabled="{Binding IsCameraActive}"
+                                    PauseScanning="{Binding IsScanPaused}"
+                                    VibrationOnDetected="True"
+                                    TapToFocusEnabled="True"
+                                    OnDetectionFinished="CameraView_OnDetectionFinished" />
+
+                <!-- Cadre de visée : quatre coins blancs -->
+                <Grid WidthRequest="230" HeightRequest="230" HorizontalOptions="Center" VerticalOptions="Center"
+                      InputTransparent="True" IsVisible="{Binding HasCameraPermission}">
+                    <BoxView Color="White" WidthRequest="34" HeightRequest="4" CornerRadius="2" HorizontalOptions="Start" VerticalOptions="Start" />
+                    <BoxView Color="White" WidthRequest="4" HeightRequest="34" CornerRadius="2" HorizontalOptions="Start" VerticalOptions="Start" />
+                    <BoxView Color="White" WidthRequest="34" HeightRequest="4" CornerRadius="2" HorizontalOptions="End" VerticalOptions="Start" />
+                    <BoxView Color="White" WidthRequest="4" HeightRequest="34" CornerRadius="2" HorizontalOptions="End" VerticalOptions="Start" />
+                    <BoxView Color="White" WidthRequest="34" HeightRequest="4" CornerRadius="2" HorizontalOptions="Start" VerticalOptions="End" />
+                    <BoxView Color="White" WidthRequest="4" HeightRequest="34" CornerRadius="2" HorizontalOptions="Start" VerticalOptions="End" />
+                    <BoxView Color="White" WidthRequest="34" HeightRequest="4" CornerRadius="2" HorizontalOptions="End" VerticalOptions="End" />
+                    <BoxView Color="White" WidthRequest="4" HeightRequest="34" CornerRadius="2" HorizontalOptions="End" VerticalOptions="End" />
+                </Grid>
+
+                <!-- Permission caméra refusée -->
+                <VerticalStackLayout IsVisible="{Binding IsPermissionDenied}" BackgroundColor="#0F2A26"
+                                     Padding="24" Spacing="14" VerticalOptions="Fill">
+                    <Label Text="L'accès à la caméra est nécessaire pour scanner le QR code."
+                           TextColor="{StaticResource White}" FontSize="16" HorizontalTextAlignment="Center"
+                           Margin="0,90,0,0" />
+                    <Button Text="Autoriser la caméra" Style="{StaticResource PrimaryButton}"
+                            Command="{Binding RetryPermissionCommand}" />
+                    <Button Text="Ouvrir les réglages" Style="{StaticResource SecondaryButton}"
+                            Command="{Binding OpenSettingsCommand}" />
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+
+        <!-- Message d'état / d'erreur -->
+        <Label Grid.Row="3" Text="{Binding FooterMessage}" FontSize="14" HorizontalTextAlignment="Center"
+               TextColor="{StaticResource Mint2}">
+            <Label.Triggers>
+                <DataTrigger TargetType="Label" Binding="{Binding HasError}" Value="True">
+                    <Setter Property="TextColor" Value="{StaticResource White}" />
+                    <Setter Property="FontFamily" Value="{StaticResource FontSemiBold}" />
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
+    </Grid>
+</ContentPage>

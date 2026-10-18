@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--
+        ┌───────────────────────────────────────────────────────────────────────┐
+        │  ICI VOUS INDIQUEZ VOS IMAGES (un seul fichier à modifier).           │
+        │                                                                       │
+        │  1. Copiez vos fichiers dans  Resources/Images/                       │
+        │  2. Écrivez ci-dessous leur NOM SANS EXTENSION.                       │
+        │     Règles : minuscules, chiffres et _ uniquement, pas d'espace,      │
+        │     commence par une lettre. Formats : .svg (idéal), .png, .jpg       │
+        │                                                                       │
+        │  Tant qu'un fichier est absent, l'emplacement reste vide (pas d'erreur).│
+        └───────────────────────────────────────────────────────────────────────┘
+    -->
+
+    <!-- Logo MediQueue (en-tête des deux écrans, ~38 px) -->
+    <x:String x:Key="ImgLogo">logo_mediqueue</x:String>
+
+    <!-- Cadenas à droite du champ « Mot de passe » (~18 px) -->
+    <x:String x:Key="ImgLockIcon">ic_cadenas</x:String>
+
+    <!-- Bouclier devant « Accès réservé au personnel du centre » (~16 px) -->
+    <x:String x:Key="ImgShieldIcon">ic_bouclier</x:String>
+
+    <!-- Stéthoscope devant le nom du service (~18 px) -->
+    <x:String x:Key="ImgServiceIcon">ic_stethoscope</x:String>
+
+    <!-- Silhouette dans le rond blanc de la carte « En consultation » (~22 px) -->
+    <x:String x:Key="ImgPersonIcon">ic_personne</x:String>
+
+    <!-- Coche dans la notification « Patient N°2yv5 appelé » (~18 px) -->
+    <x:String x:Key="ImgCheckIcon">ic_coche</x:String>
+
+</ResourceDictionary>

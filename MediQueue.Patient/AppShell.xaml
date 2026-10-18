@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="MediQueue.Patient.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:MediQueue.Patient.Views"
+       Shell.FlyoutBehavior="Disabled"
+       Shell.NavBarIsVisible="False"
+       Shell.BackgroundColor="{StaticResource PageBackground}">
+
+    <!-- Seule page racine : l'accueil. Pas d'onglets, pas de barre inférieure. -->
+    <ShellContent Title="Accueil"
+                  Route="home"
+                  ContentTemplate="{DataTemplate views:HomePage}" />
+</Shell>
